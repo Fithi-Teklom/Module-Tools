@@ -6,4 +6,4 @@ set -euo pipefail
 # Your output should contain 6 lines, each with one word and one number on it.
 # The first line should be "Ahmed 3".
 
-# awk '{print $1, NF-2}' scores-table.txt
+awk '{print $1, NF-2}' scores-table.txt
