@@ -6,4 +6,4 @@ set -euo pipefail
 # The output should contain 11 lines.
 # Line 6 of the output should be " Alisha".
 
-sed 's/[0-9]//g' input.txt
+sed 's/[0-9]//g' individual-shell-tools/sed/input.txt
