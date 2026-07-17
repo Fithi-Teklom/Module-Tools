@@ -9,4 +9,4 @@ set -euo pipefail
 #        3      19      92 ../helper-files/helper-3.txt
 #        5      30     151 total
 
-wc individual-shell-tools/helper-files/*
+wc ../helper-files/*
