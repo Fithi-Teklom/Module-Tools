@@ -88,6 +88,8 @@ for (const file of files) {
   allFiles.push(...expandWildcard(file));
 }
 
+let results = [];
+
 let total = {
   lines: 0,
   words: 0,
@@ -102,8 +104,62 @@ for (const file of allFiles) {
   total.words += stats.words;
   total.bytes += stats.bytes;
 
-  printResult(stats, file);
+  results.push({
+    stats,
+    filename: file
+  });
 }
 if (allFiles.length > 1) {
-  printResult(total, "total");
+  results.push({
+    stats: total,
+    filename: "total"
+  });
+}
+
+
+let lineWidth = 0;
+let wordWidth = 0;
+let byteWidth = 0;
+
+for (const result of results) {
+  lineWidth = Math.max(
+    lineWidth,
+    String(result.stats.lines).length
+  );
+
+  wordWidth = Math.max(
+    wordWidth,
+    String(result.stats.words).length
+  );
+
+  byteWidth = Math.max(
+    byteWidth,
+    String(result.stats.bytes).length
+  );
+}
+
+for (const result of results) {
+  const output = [];
+
+  if (!countLines && !countWords && !countBytes) {
+    output.push(String(result.stats.lines).padStart(lineWidth));
+    output.push(String(result.stats.words).padStart(wordWidth));
+    output.push(String(result.stats.bytes).padStart(byteWidth));
+  } else {
+    if (countLines) {
+      output.push(String(result.stats.lines).padStart(lineWidth));
+    }
+
+    if (countWords) {
+      output.push(String(result.stats.words).padStart(wordWidth));
+    }
+
+    if (countBytes) {
+      output.push(String(result.stats.bytes).padStart(byteWidth));
+    }
+  }
+
+  output.push(result.filename);
+
+  console.log(output.join(" "));
 }
