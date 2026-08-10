@@ -3,13 +3,13 @@ const pathModule = require("path");
 
 const args = process.argv.slice(2);
 
-let mode = "normal";
-let showHidden = false;
 let paths = [];
+let onePerLine = false;
+let showHidden = false;
 
 for (const arg of args) {
   if (arg === "-1") {
-    mode = "onePerLine";
+    onePerLine = true;
   } else if (arg === "-a") {
     showHidden = true;
   } else {
@@ -31,7 +31,7 @@ function listDirectory(dir) {
   }
 
   if (mode === "onePerLine") {
-    items.forEach(item => console.log(item));
+    items.forEach(console.log);
   } else {
     console.log(items.join("  "));
   }
