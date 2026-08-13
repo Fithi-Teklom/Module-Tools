@@ -30,8 +30,8 @@ function listDirectory(dir) {
     items = items.filter(item => !item.startsWith("."));
   }
 
-  if (mode === "onePerLine") {
-    items.forEach(console.log);
+  if (onePerLine) {
+    items.forEach(item => console.log(item));
   } else {
     console.log(items.join("  "));
   }
@@ -56,22 +56,34 @@ function expandWildcard(input) {
     .map(file => pathModule.join(dir, file));
 }
 
-for (const originalPath of paths) {
+let filePaths = [];
+let directoryPaths = [];
 
+for (const originalPath of paths) {
   const expandedPaths = expandWildcard(originalPath);
 
   for (const currentPath of expandedPaths) {
-
     const info = fs.statSync(currentPath);
 
-    if (info.isDirectory()) {
-      listDirectory(currentPath);
+    if (info.isFile()) {
+      filePaths.push(currentPath);
+    } else if (info.isDirectory()) {
+      directoryPaths.push(currentPath);
     }
-
-    else if (info.isFile()) {
-      console.log(pathModule.basename(currentPath));
-    }
-
   }
+}
 
+if (filePaths.length > 0) {
+  if (onePerLine) {
+    filePaths.forEach(file => console.log(file));
+  } else {
+    console.log(filePaths.join("  "));
+  }
+}
+for (const dir of directoryPaths) {
+  if (filePaths.length > 0 || directoryPaths.length > 1) {
+    console.log();
+    console.log(`${dir}:`);
+  }
+  listDirectory(dir);
 }
