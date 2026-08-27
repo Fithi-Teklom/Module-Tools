@@ -19,17 +19,3 @@ for filename in filenames:
                 print(line, end="")    
         else:
            print(line, end = "")    
-            
-# # file = open(filename)
-
-# if sys.argv[1]== "-n":
-#     line_number = 1
-#     for line in file:
-#         print(line_number, line, end = "")
-#         line_number += 1
-# else:
-#     for line in file:
-#         print(line, end = "")
-
-
-
