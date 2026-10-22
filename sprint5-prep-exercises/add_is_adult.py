@@ -22,3 +22,4 @@ imran = Person("Imran", 22, "Ubuntu")
 
 print(imran.name)
 print(is_adult(imran))
+print(get_address(imran))# Checked this with mypy and gave an error, as "Person" has no attribute "address"
