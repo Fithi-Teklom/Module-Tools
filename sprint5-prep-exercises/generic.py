@@ -5,7 +5,7 @@ from dataclasses import dataclass
 class Person:
     name: str
     age: int
-    children: list
+    children: list["Person"]
 
 
 fatma = Person(name="Fatma", age= 26, children=[])
