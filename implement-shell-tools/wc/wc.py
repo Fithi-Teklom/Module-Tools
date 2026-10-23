@@ -1,15 +1,22 @@
 import sys
 import os
+import argparse
 
-count_lines = "-l" in sys.argv
-count_words = "-w" in sys.argv
-count_bytes = "-c" in sys.argv
+parser = argparse.ArgumentParser(
+    description="Count lines, words, and bytes in files."
+)
 
-filenames = []
+parser.add_argument("-l", action="store_true", help="Count lines")
+parser.add_argument("-w", action="store_true", help="Count words")
+parser.add_argument("-c", action="store_true", help="Count bytes")
+parser.add_argument("filenames", nargs="+")
 
-for argument in sys.argv[1:]:
-    if not argument.startswith("-"):
-        filenames.append(argument)
+args = parser.parse_args()
+
+count_lines = args.l
+count_words = args.w
+count_bytes = args.c
+filenames = args.filenames
 
 def format_counts(line_count, word_count, byte_count):
     output = []
